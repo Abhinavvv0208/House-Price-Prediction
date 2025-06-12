@@ -37,22 +37,20 @@ if __name__=="__main__":
     app.run()
 '''
 
-from flask import Flask, request, jsonify,redirect,render_template
+from flask import Flask, request, jsonify,redirect,url_for
 import util
 import os
 
 app = Flask(__name__)
 
-@app.route('/home')
-def go_home():
-    return redirect('/')
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html'), 404
-@app.before_request
-def before_request():
-    if not request.is_secure:
-        return redirect(request.url.replace("http://", "https://", 1))
+
+@app.route('/old-page')
+def old():
+    return redirect(url_for('new'))
+
+@app.route('/new-page')
+def new():
+    return "You've been redirected!"
 
 
 @app.route('/get_location_names')
@@ -85,7 +83,7 @@ def predict_home_price():
     return response
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))
+    port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
     util.load_saved_artifacts()
     print("Starting Python Flask Server For House Price Prediction...")
