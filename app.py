@@ -37,14 +37,22 @@ if __name__=="__main__":
     app.run()
 '''
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify,redirect,render_template
 import util
 import os
 
-
-
 app = Flask(__name__)
 
+@app.route('/home')
+def go_home():
+    return redirect('/')
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+@app.before_request
+def before_request():
+    if not request.is_secure:
+        return redirect(request.url.replace("http://", "https://", 1))
 
 
 @app.route('/get_location_names')
