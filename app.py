@@ -45,9 +45,7 @@ import os
 
 app = Flask(__name__)
 
-@app.route('/')
-def home():
-    return 'Flask app is running!'
+
 
 @app.route('/get_location_names')
 def get_location_names():
