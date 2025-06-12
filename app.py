@@ -37,20 +37,11 @@ if __name__=="__main__":
     app.run()
 '''
 
-from flask import Flask, request, jsonify,redirect,url_for
+from flask import Flask, request, jsonify
 import util
 import os
 
 app = Flask(__name__)
-
-
-@app.route('/old-page')
-def old():
-    return redirect(url_for('new'))
-
-@app.route('/new-page')
-def new():
-    return "You've been redirected!"
 
 
 @app.route('/get_location_names')
